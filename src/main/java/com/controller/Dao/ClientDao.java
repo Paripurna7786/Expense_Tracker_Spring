@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.entity.clientEntity;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,8 +16,7 @@ public class ClientDao {
     @Autowired
     JdbcTemplate stmt;
 
-    public void AddClient(clientEntity client) 
-    {
+    public void AddClient(clientEntity client) {
         stmt.update("INSERT INTO clients (fname, lname, email, pass, gender, role, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
             client.getFname(),
             client.getLname(),
@@ -29,16 +27,13 @@ public class ClientDao {
             client.getCreatedAt() != null ? client.getCreatedAt() : LocalDate.now()
         );
     }
-    
-    public List<clientEntity> clientLogin(String email, String pass) {
+
+    public clientEntity findByEmail(String email) {
         List<clientEntity> clients = stmt.query(
-            "SELECT * FROM clients WHERE email = ? AND pass = ?",
+            "SELECT * FROM clients WHERE email = ?",
             new BeanPropertyRowMapper<>(clientEntity.class),
-            email, pass
+            email
         );
-        return clients;
+        return clients.isEmpty() ? null : clients.get(0);
     }
-
-   
-
 }
