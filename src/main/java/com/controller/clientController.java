@@ -14,12 +14,17 @@ import com.controller.Dao.ClientDao;
 import com.controller.Dao.ExpenseDao;
 import com.entity.clientEntity;
 import com.entity.expensEntity;
+import com.service.SendMail;
 
 @Controller
 public class clientController {
     @Autowired
     ClientDao clientdao;
 
+    
+    @Autowired
+    SendMail mail;
+    
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -32,7 +37,11 @@ public class clientController {
     }
 
     @PostMapping("clientsignuppost")
-    public String clientsignuppost(clientEntity client, Model model, HttpSession session) {
+    public String clientsignuppost(clientEntity client, Model model, HttpSession session)
+    {
+    	
+    	mail.newsendmail(client.getEmail());
+    	
         String encPwd = passwordEncoder.encode(client.getPass());
         client.setPass(encPwd);
 
