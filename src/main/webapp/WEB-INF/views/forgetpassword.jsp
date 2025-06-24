@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Forgot Password</title>
 
     <style>
         body {
@@ -43,8 +43,7 @@
             color: #cbd5e1;
         }
 
-        input[type="email"],
-        input[type="password"] {
+        input[type="email"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -78,18 +77,6 @@
             background: #0284c7;
         }
 
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
         .message {
             text-align: center;
             margin-top: 10px;
@@ -118,20 +105,14 @@
 </head>
 <body>
 
-<h2>Login</h2>
+<h2>Forgot Password</h2>
 
-<form action="loginpost" method="post">
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br>
+<form action="sendotp" method="post">
+    <label for="email">Enter your registered Email:</label>
+    <input type="email" id="email" name="email" required>
 
-    <label for="pass">Password:</label><br>
-    <input type="password" id="pass" name="pass" required><br>
-
-    <input type="submit" value="Login">
+    <input type="submit" value="Send OTP">
 </form>
-
-<p>forget password?? <a href="Forgetpasswordpost">Click here</a></p>
-<p>Don't have an account? <a href="clientSignUp">Sign up here</a></p>
 
 </body>
 </html>

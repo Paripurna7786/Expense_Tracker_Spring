@@ -1,6 +1,5 @@
 package com.entity;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import lombok.AccessLevel;
@@ -28,7 +27,11 @@ public class clientEntity
 
     private String gender;
 
+    private String profilepicpath;
+    
     private String role = "User";
 
     private LocalDate createdAt = LocalDate.now();
+    
+    
 }

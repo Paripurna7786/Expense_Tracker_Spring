@@ -16,17 +16,27 @@ public class ClientDao {
     @Autowired
     JdbcTemplate stmt;
 
-    public void AddClient(clientEntity client) {
-        stmt.update("INSERT INTO clients (fname, lname, email, pass, gender, role, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    public clientEntity AddClient(clientEntity client) {
+        stmt.update("INSERT INTO clients (fname, lname, email, pass, gender, role, created_at, profilepicpath) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             client.getFname(),
             client.getLname(),
             client.getEmail(),
             client.getPass(),
             client.getGender(),
             client.getRole(),
-            client.getCreatedAt() != null ? client.getCreatedAt() : LocalDate.now()
+            client.getCreatedAt() != null ? client.getCreatedAt() : LocalDate.now(),
+            client.getProfilepicpath()
         );
+
+   
+        return findByEmail(client.getEmail());
     }
+
+    
+    public void updatePassword(String email, String newPassword) {
+        stmt.update("UPDATE clients SET pass = ? WHERE email = ?", newPassword, email);
+    }
+
 
     public clientEntity findByEmail(String email) {
         List<clientEntity> clients = stmt.query(

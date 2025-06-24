@@ -150,7 +150,6 @@
     <label for="expenseDate">Expense Date:</label>
     <input type="date" id="expenseDate" name="expenseDate" required>
 
-    <input type="hidden" name="client.id" value="${client.id}" />
 
     <input type="submit" value="Add Expense">
 

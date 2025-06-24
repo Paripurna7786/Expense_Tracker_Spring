@@ -141,6 +141,8 @@
         </tr>
     </thead>
     <tbody>
+    
+    
         <c:forEach var="expense" items="${expenses}">
             <tr>
                 <td data-label="Title">${expense.title}</td>

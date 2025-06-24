@@ -110,7 +110,7 @@
 </head>
 <body>
 
-<form action="clientsignuppost" method="post">
+<form action="clientsignuppost" method="post" enctype="multipart/form-data">
     <h2>Sign Up</h2>
 
     <label for="fname">First Name:</label>
@@ -125,6 +125,7 @@
     <label for="pass">Password:</label>
     <input type="password" id="pass" name="pass" required>
 
+    
     <label for="gender">Gender:</label>
     <select id="gender" name="gender" required>
         <option value="">Select</option>
@@ -133,6 +134,9 @@
         <option value="Other">Other</option>
     </select>
 
+	 <label for="image">Upload image</label>
+    <input type="file" id="image" name="image" required>
+    
     <input type="submit" value="Sign Up">
 
     <c:if test="${not empty errorMessage}">
@@ -143,7 +147,7 @@
         <p class="message success">${successMessage}</p>
     </c:if>
 
-    <p>Already have an account? <a href="Clientogin">Login here</a></p>
+    <p>Already have an account? <a href="ClientLogin">Login here</a></p>
 </form>
 
 </body>

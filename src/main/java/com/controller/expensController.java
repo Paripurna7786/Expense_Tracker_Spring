@@ -39,7 +39,7 @@ public class expensController
 	   
 	        expensedao.AddExpense(expense);
 	        List<expensEntity> expenses = expensedao.getExpensesByClientId(loggedClient);
-	     
+	        model.addAttribute("client", loggedClient);
 	        model.addAttribute("expenses", expenses);
 	    }
 

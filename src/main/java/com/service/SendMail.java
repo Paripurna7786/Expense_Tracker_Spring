@@ -3,6 +3,7 @@ package com.service;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class SendMail
@@ -56,5 +58,36 @@ public class SendMail
 			e.printStackTrace();
 		}
     }
+	
+	public void sendOtpMail(String email, HttpSession session) {
+	    try {
+	        int otp = 100000 + new Random().nextInt(900000);
+	        String otpString = String.valueOf(otp);
+
+	      
+	        session.setAttribute("otpString", otpString);
+
+	      
+	        ClassPathResource resource = new ClassPathResource("templates/otp-email.html");
+	        String htmlContent = Files.readString(resource.getFile().toPath(), StandardCharsets.UTF_8);
+	        htmlContent = htmlContent.replace("${OTP}", otpString);
+
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+	        helper.setFrom("paripurnatiwari@gmail.com");
+	        helper.setTo(email);
+	        helper.setSubject("Your OTP for Password Reset");
+	        helper.setText(htmlContent, true);
+
+	        mailSender.send(message);
+
+	        System.out.println("Generated OTP for " + email + ": " + otpString);
+	    } catch (IOException | MessagingException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
 	
 }

@@ -1,11 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-
+    <title>Set New Password</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -43,7 +41,6 @@
             color: #cbd5e1;
         }
 
-        input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -78,32 +75,6 @@
             background: #0284c7;
         }
 
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            text-align: center;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .message.error {
-            color: #f87171;
-        }
-
-        .message.success {
-            color: #34d399;
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -118,20 +89,17 @@
 </head>
 <body>
 
-<h2>Login</h2>
+<h2>Set New Password</h2>
 
-<form action="loginpost" method="post">
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br>
+<form action="updatePassword" method="post">
+    <label for="newPassword">New Password:</label>
+    <input type="password" id="newPassword" name="newPassword" required>
 
-    <label for="pass">Password:</label><br>
-    <input type="password" id="pass" name="pass" required><br>
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
 
-    <input type="submit" value="Login">
+    <input type="submit" value="Update Password">
 </form>
-
-<p>forget password?? <a href="Forgetpasswordpost">Click here</a></p>
-<p>Don't have an account? <a href="clientSignUp">Sign up here</a></p>
 
 </body>
 </html>
