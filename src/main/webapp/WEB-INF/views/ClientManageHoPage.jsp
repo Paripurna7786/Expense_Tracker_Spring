@@ -127,6 +127,13 @@
     </style>
 </head>
 <body>
+<c:set var="client" value="${sessionScope.loggedClient}" />
+
+<div style="display: flex; align-items: center; justify-content: center; margin-bottom: 30px; gap: 20px;">
+    <img src="${client.profilepicpath}" alt="Profile Picture"
+         style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 10px #38bdf8;">
+    <h2 style="color: #38bdf8; font-weight: 600;">Welcome, ${client.fname} ${client.lname}!</h2>
+</div>
 
 <h3>All Expenses</h3>
 <table>

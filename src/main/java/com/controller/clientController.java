@@ -48,46 +48,42 @@ public class clientController {
     }
 
     @PostMapping("clientsignuppost")
-    public String clientsignuppost(clientEntity client, Model model, HttpSession session, @RequestParam MultipartFile image)
-    {
-    	
-//    	mail.newsendmail(client.getEmail());
-    	System.out.println(image.getOriginalFilename());
-    	System.out.println(image.getSize());
+    public String clientsignuppost(clientEntity client, Model model, HttpSession session, @RequestParam MultipartFile image) {
+
+        // Check if client already exists
+        if (clientdao.findByEmail(client.getEmail()) != null)
+        {
+            model.addAttribute("error", "Email already exists.");
+            return "clientSignUp";
+        }
+
+        try 
+        {
+            // Upload image to Cloudinary
+            Map result = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
+            String imagePath = result.get("secure_url").toString();
+            client.setProfilepicpath(imagePath);
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+            model.addAttribute("error", "Image upload failed.");
+            return "clientSignUp";
+        }
+
+        // Encrypt password
         String encPwd = passwordEncoder.encode(client.getPass());
         client.setPass(encPwd);
 
-        
-        clientEntity loggedClient = clientdao.findByEmail(client.getEmail());
-        if (loggedClient != null) {
-            model.addAttribute("client", loggedClient);
-            session.setAttribute("loggedClient", loggedClient);
+        // Save new client
+        clientEntity newClient = clientdao.AddClient(client);
 
-            List<expensEntity> expenses = expensedao.getExpensesByClientId(loggedClient);
-            model.addAttribute("expenses", expenses);
-        }
-        
-		
-		try {
+        // Set in session and model
+        session.setAttribute("loggedClient", newClient);
+        model.addAttribute("client", newClient);
 
-			Map result = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
-
-			System.out.println(result);
-			String imagePath = result.get("secure_url").toString();
-			System.out.println(imagePath);
-			
-			client.setProfilepicpath(imagePath);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		clientEntity newClient = clientdao.AddClient(client);
-		session.setAttribute("loggedClient", newClient);
-		model.addAttribute("client", newClient);
-
-		List<expensEntity> expenses = expensedao.getExpensesByClientId(newClient);
-		model.addAttribute("expenses", expenses);
+        // Fetch and set expenses
+        List<expensEntity> expenses = expensedao.getExpensesByClientId(newClient);
+        model.addAttribute("expenses", expenses);
 
         return "ClientManageHoPage";
     }
