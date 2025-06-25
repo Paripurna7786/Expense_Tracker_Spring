@@ -1,6 +1,5 @@
 package com.controller;
 
-import jakarta.mail.Multipart;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;

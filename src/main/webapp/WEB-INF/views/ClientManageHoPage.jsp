@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Client Manage Home Page</title>
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+		
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -151,14 +152,27 @@
     
     
         <c:forEach var="expense" items="${expenses}">
-            <tr>
-                <td data-label="Title">${expense.title}</td>
-                <td data-label="Vendor">${expense.vendor}</td>
-                <td data-label="Category">${expense.category}</td>
-                <td data-label="Amount">${expense.amount}</td>
-                <td data-label="Payment Mode">${expense.paymentMode}</td>
-                <td data-label="Expense Date">${expense.expenseDate}</td>
-            </tr>
+          <tr>
+    <td data-label="Title">${expense.title}</td>
+    <td data-label="Vendor">${expense.vendor}</td>
+    <td data-label="Category">${expense.category}</td>
+    <td data-label="Amount">${expense.amount}</td>
+    <td data-label="Payment Mode">${expense.paymentMode}</td>
+    <td data-label="Expense Date">${expense.expenseDate}</td>
+    
+    <td data-label="Actions">
+        <a href="delete_expanse?id=${expense.id}" 
+           onclick="return confirm('Delete this expense?');" 
+           style="color: red; margin-right: 10px;">
+            <i class="fa-solid fa-trash"></i>
+        </a>
+        <a href="edit_expanse?id=${expense.id}" 
+           style="color: #22c55e;">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+    </td>
+</tr>
+          
         </c:forEach>
     </tbody>
 </table>
