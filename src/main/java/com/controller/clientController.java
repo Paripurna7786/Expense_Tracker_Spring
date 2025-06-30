@@ -41,7 +41,7 @@ public class clientController {
     @Autowired
     ExpenseDao expensedao;
 
-    @GetMapping("clientSignUp")
+    @GetMapping({"/", "clientSignUp"})
     public String clientSignUp() {
         return "clientSignUp";
     }
