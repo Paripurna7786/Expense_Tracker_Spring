@@ -49,6 +49,8 @@ public class clientController {
     @PostMapping("clientsignuppost")
     public String clientsignuppost(clientEntity client, Model model, HttpSession session, @RequestParam MultipartFile image) {
 
+    	
+     	mail.newsendmail(client.getEmail());
         // Check if client already exists
         if (clientdao.findByEmail(client.getEmail()) != null)
         {
