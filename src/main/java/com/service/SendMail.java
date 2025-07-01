@@ -26,7 +26,7 @@ public class SendMail
 	public void sendmail(String email)
 	{
 		SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("paripurnatiwari@gamil.com");
+		message.setFrom("paripurnatiwari@gmail.com");
         message.setTo(email);
         message.setSubject("welcome mail");
         message.setText("welcome,we are happy to serve you");
@@ -48,7 +48,9 @@ public class SendMail
             helper.setTo(email);
             helper.setSubject("Welcome to Our Platform");
             helper.setText(htmlContent, true);
-
+            System.out.println("Sending mail to: " + email);
+            mailSender.send(message);
+            System.out.println("Mail sent successfully to: " + email);
             mailSender.send(message);
 
         } catch (IOException e) {
