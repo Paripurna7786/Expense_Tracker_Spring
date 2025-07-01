@@ -38,7 +38,8 @@ public class SendMail
         try {
            
             ClassPathResource resource = new ClassPathResource("templates/welcome-email.html");
-            String htmlContent = Files.readString(resource.getFile().toPath(), StandardCharsets.UTF_8);
+            String htmlContent = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+
 
             
             MimeMessage message = mailSender.createMimeMessage();
