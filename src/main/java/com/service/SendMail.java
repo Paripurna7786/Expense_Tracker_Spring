@@ -67,12 +67,10 @@ public class SendMail
 	        int otp = 100000 + new Random().nextInt(900000);
 	        String otpString = String.valueOf(otp);
 
-	      
 	        session.setAttribute("otpString", otpString);
 
-	      
 	        ClassPathResource resource = new ClassPathResource("templates/otp-email.html");
-	        String htmlContent = Files.readString(resource.getFile().toPath(), StandardCharsets.UTF_8);
+	        String htmlContent = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
 	        htmlContent = htmlContent.replace("${OTP}", otpString);
 
 	        MimeMessage message = mailSender.createMimeMessage();
@@ -90,6 +88,7 @@ public class SendMail
 	        e.printStackTrace();
 	    }
 	}
+
 
 
 	
