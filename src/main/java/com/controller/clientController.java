@@ -41,7 +41,9 @@ public class clientController {
     @Autowired
     ExpenseDao expensedao;
 
-    @GetMapping({"/", "clientSignUp"})
+    
+    
+    @GetMapping( "clientSignUp")
     public String clientSignUp() {
         return "clientSignUp";
     }
@@ -182,4 +184,22 @@ public class clientController {
 
         return "ClientLogin";
     }
+    
+    @GetMapping("search-expense")
+    public String searchExpenses(@RequestParam("query") String query, Model model, HttpSession session) {
+        clientEntity loggedClient = (clientEntity) session.getAttribute("loggedClient");
+
+        if (loggedClient == null) {
+            return "redirect:/ClientLogin";
+        }
+
+        List<expensEntity> filteredExpenses = expensedao.searchExpenses(loggedClient.getId(), query);
+
+        model.addAttribute("expenses", filteredExpenses);
+        session.setAttribute("loggedClient", loggedClient);
+        
+        return "ClientManageHoPage";
+    }
+
+
 }

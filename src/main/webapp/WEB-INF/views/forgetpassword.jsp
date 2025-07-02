@@ -1,22 +1,71 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Forgot Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        body {
+        :root {
+            --primary: #4e54c8;
+            --secondary: #8f94fb;
+            --text-color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', sans-serif;
-            background-color: #0f172a;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            animation: fadeIn 0.7s ease-in;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.05rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f0f0f0;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        main {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #e2e8f0;
-            animation: fadeIn 0.7s ease-in;
+            padding: 40px 20px;
+            min-height: calc(100vh - 80px);
             flex-direction: column;
         }
 
@@ -71,10 +120,12 @@
             cursor: pointer;
             transition: background 0.3s ease;
             margin-top: 10px;
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.4);
         }
 
         input[type="submit"]:hover {
             background: #0284c7;
+            box-shadow: 0 0 15px rgba(2, 132, 199, 0.6);
         }
 
         .message {
@@ -105,14 +156,24 @@
 </head>
 <body>
 
-<h2>Forgot Password</h2>
+<header>
+    <h2><i class="fas fa-wallet"></i> ExpenseTracker</h2>
+    <nav>
+        <a href="/">Home</a>
+        <a href="about_us">About Us</a>
+        <a href="ClientLogin">Login</a>
+        <a href="clientSignUp">Sign Up</a>
+    </nav>
+</header>
 
-<form action="sendotp" method="post">
-    <label for="email">Enter your registered Email:</label>
-    <input type="email" id="email" name="email" required>
-
-    <input type="submit" value="Send OTP">
-</form>
+<main>
+    <h2>Forgot Password</h2>
+    <form action="sendotp" method="post">
+        <label for="email">Enter your registered Email:</label>
+        <input type="email" id="email" name="email" required>
+        <input type="submit" value="Send OTP">
+    </form>
+</main>
 
 </body>
 </html>

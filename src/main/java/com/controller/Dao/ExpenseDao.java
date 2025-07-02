@@ -68,5 +68,21 @@
 		    );
 		}
 
+		public List<expensEntity> searchExpenses(Long clientId, String keyword) {
+		    if (keyword == null || keyword.trim().isEmpty()) {
+		        return stmt.query("SELECT * FROM expenses WHERE user_id = ?",
+		                new Object[]{clientId},
+		                new BeanPropertyRowMapper<>(expensEntity.class));
+		    }
+
+		    String sql = "SELECT * FROM expenses WHERE user_id = ? AND " +
+		                 "(title LIKE ? OR vendor LIKE ? OR category LIKE ?)";
+		    String likeKeyword = "%" + keyword + "%";
+
+		    return stmt.query(sql,
+		            new Object[]{clientId, likeKeyword, likeKeyword, likeKeyword},
+		            new BeanPropertyRowMapper<>(expensEntity.class));
+		}
+
 	
 	}

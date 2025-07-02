@@ -5,19 +5,67 @@
 <head>
     <meta charset="UTF-8">
     <title>New Expense</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        body {
+        :root {
+            --primary: #4e54c8;
+            --secondary: #8f94fb;
+            --text-color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            animation: fadeIn 0.7s ease-in;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.05rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f0f0f0;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        main {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            animation: fadeIn 0.7s ease-in;
+            padding: 40px 20px;
+            min-height: calc(100vh - 80px);
         }
 
         form {
@@ -115,52 +163,63 @@
 </head>
 <body>
 
-<form action="add-expense" method="post">
-    <h2>Add New Expense</h2>
+<header>
+    <h2><i class="fas fa-wallet"></i> ExpenseTracker</h2>
+    <nav>
+        <a href="/">Home</a>
+        <a href="about_us">About Us</a>
+        <a href="ClientLogin">Login</a>
+        <a href="clientSignUp">Sign Up</a>
+    </nav>
+</header>
 
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
+<main>
+    <form action="add-expense" method="post">
+        <h2>Add New Expense</h2>
 
-    <label for="vendor">Vendor:</label>
-    <input type="text" id="vendor" name="vendor" required>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
 
-    <label for="category">Category:</label>
-    <select id="category" name="category" required>
-        <option value="">Select</option>
-        <option value="Food">Food</option>
-        <option value="Travel">Travel</option>
-        <option value="Entertainment">Entertainment</option>
-        <option value="Shopping">Shopping</option>
-        <option value="Utilities">Utilities</option>
-        <option value="Others">Others</option>
-    </select>
+        <label for="vendor">Vendor:</label>
+        <input type="text" id="vendor" name="vendor" required>
 
-    <label for="amount">Amount (₹):</label>
-    <input type="number" id="amount" name="amount" required>
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <option value="">Select</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Others">Others</option>
+        </select>
 
-    <label for="paymentMode">Payment Mode:</label>
-    <select id="paymentMode" name="paymentMode" required>
-        <option value="">Select</option>
-        <option value="CASH">CASH</option>
-        <option value="CARD">CARD</option>
-        <option value="UPI">UPI</option>
-        <option value="NET BANKING">NET BANKING</option>
-    </select>
+        <label for="amount">Amount (₹):</label>
+        <input type="number" id="amount" name="amount" required>
 
-    <label for="expenseDate">Expense Date:</label>
-    <input type="date" id="expenseDate" name="expenseDate" required>
+        <label for="paymentMode">Payment Mode:</label>
+        <select id="paymentMode" name="paymentMode" required>
+            <option value="">Select</option>
+            <option value="CASH">CASH</option>
+            <option value="CARD">CARD</option>
+            <option value="UPI">UPI</option>
+            <option value="NET BANKING">NET BANKING</option>
+        </select>
 
+        <label for="expenseDate">Expense Date:</label>
+        <input type="date" id="expenseDate" name="expenseDate" required>
 
-    <input type="submit" value="Add Expense">
+        <input type="submit" value="Add Expense">
 
-    <c:if test="${not empty errorMessage}">
-        <p class="error">${errorMessage}</p>
-    </c:if>
+        <c:if test="${not empty errorMessage}">
+            <p class="error">${errorMessage}</p>
+        </c:if>
 
-    <c:if test="${not empty successMessage}">
-        <p class="success">${successMessage}</p>
-    </c:if>
-</form>
+        <c:if test="${not empty successMessage}">
+            <p class="success">${successMessage}</p>
+        </c:if>
+    </form>
+</main>
 
 </body>
 </html>
